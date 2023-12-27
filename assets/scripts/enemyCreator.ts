@@ -4,7 +4,7 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends cc.Component {
 
     pfEnemy: cc.Prefab[] = []
-    prebafPaths: string[] = ["prefabs/enemy1", "prefabs/enemy2","prefabs/enemy3_n1"];
+    prebafPaths: string[] = ["prefabs/enemy1", "prefabs/enemy2",];
     // enemys: cc.Node[] = []
     loadedCount: number = 0
     speed: number = 100
@@ -27,7 +27,6 @@ export default class NewClass extends cc.Component {
 
         // 检查是否所有图片都已加载完成
         if (this.loadedCount === this.prebafPaths.length) {
-            // 所有图片都加载完成
             console.log("All Prefab loaded!");
             this.schedule(this.enemyCreator.bind(this), 1)
         }
