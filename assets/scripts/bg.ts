@@ -21,7 +21,7 @@ export default class NewClass extends cc.Component {
             this.list[i].y -= this.speed * dt;
             // console.log('position',this.list[i].y);
 
-            if (this.list[i].y < -955) {
+            if (this.list[i].y <= -955) {
                 this.list[i].y = 955;
             }
         }

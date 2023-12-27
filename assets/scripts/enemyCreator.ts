@@ -10,7 +10,6 @@ export default class NewClass extends cc.Component {
     speed: number = 100
 
     start() {
-        // 循环遍历图片路径数组，使用cc.resources.load加载每个图片
         for (let i = 0; i < this.prebafPaths.length; i++) {
             let prebafPath = this.prebafPaths[i];
             cc.resources.load(prebafPath, cc.Prefab, this.prefabLoaded.bind(this));
@@ -25,7 +24,6 @@ export default class NewClass extends cc.Component {
         this.pfEnemy[this.loadedCount] = res
         this.loadedCount++;
 
-        // 检查是否所有图片都已加载完成
         if (this.loadedCount === this.prebafPaths.length) {
             console.log("All Prefab loaded!");
             this.schedule(this.enemyCreator.bind(this), 1)
@@ -41,9 +39,9 @@ export default class NewClass extends cc.Component {
     }
 
     protected update(dt: number): void {
-        this.node.children.forEach((enemy,index) => {
+        this.node.children.forEach((enemy, index) => {
             enemy.y -= this.speed * dt
-            if (enemy.y < -880-enemy.height/2) {
+            if (enemy.y < -880 - enemy.height / 2) {
                 this.node.removeChild(enemy)
                 // this.enemys.splice(index, 1)
                 // console.log('removeChild',this.node.children)
