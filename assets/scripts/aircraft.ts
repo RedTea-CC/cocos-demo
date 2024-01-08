@@ -101,7 +101,7 @@ export default class NewClass extends cc.Component {
 
             var gameOverImg = cc.find("Canvas/gameImg");
             gameOverImg.active = true;
-            // cc.director.pause();
+            cc.director.pause();
         }
     }
 }

@@ -17,5 +17,15 @@ export default class NewClass extends cc.Component {
         this.node.active = false;
     }
 
+    onClickBtn(Event: Event, customEventData: string) {
+        if (customEventData == "start") {
+            cc.director.loadScene("class3")
+            cc.director.resume()
+        }
+        if (customEventData == "end") {
+            cc.game.end()
+        }
+    }
+
     // update (dt) {}
 }

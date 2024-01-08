@@ -5,7 +5,6 @@ export default class NewClass extends cc.Component {
 
     pfEnemy: cc.Prefab[] = []
     prebafPaths: string[] = ["prefabs/enemy1", "prefabs/enemy2",];
-    // enemys: cc.Node[] = []
     loadedCount: number = 0
     speed: number = 100
 
@@ -33,7 +32,6 @@ export default class NewClass extends cc.Component {
     enemyCreator() {
         let random = this.getRandomInt(0, this.prebafPaths.length - 1)
         let enemyNode = cc.instantiate(this.pfEnemy[random])
-        // this.enemys.push(enemyNode)
         this.node.addChild(enemyNode)
         enemyNode.x = -(320 - enemyNode.width / 2) + Math.random() * (620 - enemyNode.width)
     }
@@ -43,8 +41,6 @@ export default class NewClass extends cc.Component {
             enemy.y -= this.speed * dt
             if (enemy.y < -880 - enemy.height / 2) {
                 this.node.removeChild(enemy)
-                // this.enemys.splice(index, 1)
-                // console.log('removeChild',this.node.children)
             }
         })
     }
