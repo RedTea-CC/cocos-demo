@@ -75,25 +75,18 @@ export default class NewClass extends cc.Component {
         this.curIndex = this.curIndex % this.imagePaths.length
         this.spFly.spriteFrame = this.sp[this.curIndex]
         this.curIndex++
-
-        if (this.node.x <= -263) {
-            this.node.x = -263
-        }
-        if (this.node.x >= 263) {
-            this.node.x = 263
-        }
-        if (this.node.y <= -417) {
-            this.node.y = -417
-        }
-        if (this.node.y >= 417) {
-            this.node.y = 417
-        }
     }
 
     onTouchMove(event: cc.Event.EventTouch) {
+
         let delta = event.getDelta()
-        this.node.x += delta.x
-        this.node.y += delta.y
+
+        if (this.node.x + delta.x >= -264 && this.node.x + delta.x <= 264) {
+            this.node.x += delta.x
+        }
+        if (this.node.y + delta.y >= -418 && this.node.y + delta.y <= 418) {
+            this.node.y += delta.y
+        }
     }
 
     /**
@@ -101,7 +94,7 @@ export default class NewClass extends cc.Component {
      * @param  {Collider} other 产生碰撞的另一个碰撞组件
      * @param  {Collider} self  产生碰撞的自身的碰撞组件
      */
-    onCollisionEnter(other, self) {
+    onCollisionEnter(other: cc.Collider, self: cc.Collider): void {
         if (other.node.name.includes('enemy')) {
             other.node.destroy();
             self.node.destroy();
