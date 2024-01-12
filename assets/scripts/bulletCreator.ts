@@ -13,8 +13,11 @@ export default class NewClass extends cc.Component {
     @property
     speed: number = 300;
 
+    gameControl: cc.Node = null;
+
     start() {
         cc.director.getCollisionManager().enabled = true;
+        this.gameControl = cc.find("Canvas");   // 获取game节点
     }
 
     update(dt) {
@@ -29,6 +32,7 @@ export default class NewClass extends cc.Component {
         if (other.node.name.includes('enemy')) {
             other.node.destroy();
             self.node.destroy();
+            this.gameControl.getComponent('game').destroySound(other.node.name);
         }
     }
 }
