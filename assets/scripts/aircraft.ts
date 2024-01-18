@@ -4,7 +4,6 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends cc.Component {
 
     sp: cc.SpriteFrame[] = []
-    destroySp: cc.SpriteFrame[] = []
     spFly: cc.Sprite
 
     loadedCount: number = 0
@@ -35,9 +34,6 @@ export default class NewClass extends cc.Component {
             let imagePath = this.imagePaths[i];
             cc.resources.load(imagePath, cc.SpriteFrame, this.onResourceLoaded.bind(this));
         }
-        for (let i = 0; i < this.destroyImagePaths.length; i++) {
-            cc.resources.load(this.destroyImagePaths[i], cc.SpriteFrame, this.destroyLoaded.bind(this));
-        }
     }
 
     // 每个图片加载完成时
@@ -55,16 +51,6 @@ export default class NewClass extends cc.Component {
             // 所有图片都加载完成
             console.log("All images loaded!");
             this.schedule(this.updataSp.bind(this), 0.2)
-        }
-    }
-    destroyLoaded(error: Error, SpriteFrame: cc.SpriteFrame) {
-        if (error) {
-            console.error("Failed to load resource:", error);
-            return
-        }
-        this.destroySp.push(SpriteFrame)
-        if (this.destroySp.length === this.destroyImagePaths.length) {
-            console.log("All destroy images loaded!");
         }
     }
 
@@ -114,15 +100,13 @@ export default class NewClass extends cc.Component {
             other.node.destroy();
             this.unscheduleAllCallbacks()
             this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
-            this.curIndex = 0
-            this.schedule(this.updateDestroySp.bind(this), 0.5, this.destroyImagePaths.length - 1)
-            // self.node.destroy();
+            this.getComponent(cc.Animation).play('aircraft')
 
             this.gameControl.getComponent('game').gameOver()
         }
     }
-    updateDestroySp() {
-        this.spFly.spriteFrame = this.destroySp[++this.curIndex]
-        this.curIndex == this.destroyImagePaths.length && this.node.destroy()
+    destroySp() {
+        // this.getComponent(cc.Animation).stop('aircraft')
+        this.node.destroy();
     }
 }

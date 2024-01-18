@@ -30,10 +30,23 @@ export default class NewClass extends cc.Component {
     }
 
     enemyCreator() {
+        let t = cc.tween;
         let random = this.getRandomInt(0, this.prebafPaths.length - 1)
         let enemyNode = cc.instantiate(this.pfEnemy[random])
         this.node.addChild(enemyNode)
-        enemyNode.x = -(320 - enemyNode.width / 2) + Math.random() * (620 - enemyNode.width)
+        enemyNode.x = -(320 - enemyNode.width / 2) + Math.random() * (640 - enemyNode.width / 2)
+        if (enemyNode.x + 100 < (320 - enemyNode.width / 2)) {
+            t(enemyNode).parallel(
+                t().to(0.5, { angle: 360, scale: 2 }).to(0.5, { scale: 1 }),
+                t().by(0.5, { x: 100 })
+            ).start()
+        }
+        else if (enemyNode.x - 100 > -(320 - enemyNode.width / 2)) {
+            t(enemyNode).parallel(
+                t().to(0.5, { angle: 360, scale: 2 }).to(0.5, { scale: 1 }),
+                t().by(0.5, { x: -100 })
+            ).start()
+        }
     }
 
     protected update(dt: number): void {
