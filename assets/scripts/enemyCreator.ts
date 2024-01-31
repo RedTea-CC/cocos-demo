@@ -9,10 +9,9 @@ export default class NewClass extends cc.Component {
     speed: number = 100
 
     start() {
-        for (let i = 0; i < this.prebafPaths.length; i++) {
-            let prebafPath = this.prebafPaths[i];
+        this.prebafPaths.map((prebafPath) => {
             cc.resources.load(prebafPath, cc.Prefab, this.prefabLoaded.bind(this));
-        }
+        })
     }
 
     prefabLoaded(error: Error, res: cc.Prefab) {

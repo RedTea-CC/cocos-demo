@@ -30,10 +30,9 @@ export default class NewClass extends cc.Component {
         this.schedule(this.fir.bind(this), 0.2) // 子弹发射
 
         // 循环遍历图片路径数组，使用cc.resources.load加载每个图片
-        for (let i = 0; i < this.imagePaths.length; i++) {
-            let imagePath = this.imagePaths[i];
+        this.imagePaths.map((imagePath) => {
             cc.resources.load(imagePath, cc.SpriteFrame, this.onResourceLoaded.bind(this));
-        }
+        })
     }
 
     // 每个图片加载完成时
